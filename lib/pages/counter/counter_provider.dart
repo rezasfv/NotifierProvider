@@ -1,12 +1,12 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class Counter extends AutoDisposeNotifier<int> {
+class Counter extends FamilyNotifier<int, int> {
   @override
-  int build() {
+  int build(int arg) {
     ref.onDispose(() {
       print('[CounterProvider] Disposed');
     });
-    return 0;
+    return arg;
   }
 
   void increment() {
@@ -14,6 +14,6 @@ class Counter extends AutoDisposeNotifier<int> {
   }
 }
 
-final counterProvider = NotifierProvider.autoDispose<Counter, int>(() {
+final counterProvider = NotifierProvider.family<Counter, int, int>(() {
   return Counter();
 });
